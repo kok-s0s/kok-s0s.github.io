@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#D22E42">
+  <meta name="description" content="
+本文是通过学习B站一个up主技术胖的视频而记录下的学习过程。
+从面向对象开始的教程因为学过了（懒），所以找了技术胖博客来作为学习资料。
+好吧，这个堪称TypeScript的超入门教程，一天时间可以过完。">
+  <meta name="author" content="kok-s0s">
+  <meta name="keywords" content="">
+  
+  <title>TS学习 - KO-Kick</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"kok-s0s.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>散文不倦</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/hexo_top_img.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="TS学习">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-06 16:30" pubdate>
+        2020年5月6日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      58
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">TS学习</h1>
+            
+            <div class="markdown-body">
+              <p><img src="/images/typescript.jpg" srcset="/img/loading.gif" lazyload alt="" /></p>
+<p>本文是通过学习B站一个up主<a target="_blank" rel="noopener" href="https://space.bilibili.com/165659472?spm_id_from=333.788.b_765f7570696e666f.1">技术胖</a>的视频而记录下的学习过程。</p>
+<p>从面向对象开始的教程因为学过了（<code>懒</code>），所以找了技术胖<a target="_blank" rel="noopener" href="https://www.jspang.com/detailed?id=38#toc354">博客</a>来作为学习资料。</p>
+<p>好吧，这个堪称<code>TypeScript</code>的超入门教程，一天时间可以过完。</p>
+<span id="more"></span>
+<h2 id="变量类型"><a class="markdownIt-Anchor" href="#变量类型"></a> 变量类型</h2>
+<p><code>TypeScript</code>最大的一个特点就是变量是强类型的，也就是说在声明变量时，我们必须给他定义一个类型。</p>
+<p>TypeScript中的数据类型有：</p>
+<div class="hljs code-wrapper"><pre><code>Undefined :
+Number:数值类型;
+string : 字符串类型;
+Boolean: 布尔类型；
+enum：枚举类型；
+any : 任意类型，一个牛X的类型；
+void：空类型；
+Array : 数组类型;
+Tuple : 元祖类型；
+Null ：空类型。
+</code></pre></div>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-comment">//在js中当你定义了一个变量，但没有给它赋予任何值的时候，它就是Undefined类型。</span><br><span class="hljs-keyword">var</span> age:<span class="hljs-built_in">number</span><br><span class="hljs-built_in">console</span>.log(age)<br><br><span class="hljs-comment">//Number 可用于表示整数或浮点数</span><br><span class="hljs-comment">//Infinity:正无穷大</span><br><span class="hljs-comment">//-Infinity:负无穷大</span><br><span class="hljs-comment">//NaN:它是Not a Number 的简写，意思就是不是一个数值。如果一个计算结果或者函数的返回值本应该是数值，但是由于种种原因，他不是数字。出现这种状况不会报错，而是把它的结果看成了NaN。</span><br><span class="hljs-keyword">var</span> age:<span class="hljs-built_in">number</span> = <span class="hljs-number">18</span><br><span class="hljs-keyword">var</span> stature:<span class="hljs-built_in">number</span> = <span class="hljs-number">178.5</span><br><span class="hljs-keyword">var</span> special:<span class="hljs-built_in">number</span> = <span class="hljs-literal">NaN</span>  <br><br><span class="hljs-built_in">console</span>.log(age)<br><span class="hljs-built_in">console</span>.log(stature)<br><span class="hljs-built_in">console</span>.log(special)<br><br><span class="hljs-comment">//string 单双引号都可以使用</span><br><span class="hljs-keyword">var</span> text:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;what not have a try?&quot;</span><br><br><span class="hljs-built_in">console</span>.log(text)<br><br><span class="hljs-comment">//boolean</span><br><span class="hljs-keyword">var</span> b:<span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span><br><span class="hljs-keyword">var</span> c:<span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span><br><br><span class="hljs-comment">//enum 枚举类型     人：男人，女人，中性；  四季</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;---------------------&quot;</span>)<br><span class="hljs-built_in">enum</span> REN&#123;man = <span class="hljs-string">&quot;男人&quot;</span>,woman = <span class="hljs-string">&quot;女人&quot;</span>,what = <span class="hljs-string">&quot;中性&quot;</span>&#125;<br><span class="hljs-built_in">console</span>.log(REN.what)<br><br><span class="hljs-comment">//any 万能类型</span><br><span class="hljs-keyword">var</span> t:<span class="hljs-built_in">any</span> = <span class="hljs-number">100</span><br>t = <span class="hljs-string">&quot;how&quot;</span><br>t = <span class="hljs-literal">true</span><br><span class="hljs-built_in">console</span>.log(t)<br><br><span class="hljs-comment">//null 表示引用类型为空</span><br></code></pre></div></td></tr></table></figure>
+<h2 id="typescript的函数"><a class="markdownIt-Anchor" href="#typescript的函数"></a> TypeScript的函数</h2>
+<p>需要注意的是：</p>
+<ul>
+<li>声明（定义）函数必须加 function 关键字；</li>
+<li>函数名与变量名一样，命名规则按照标识符规则；</li>
+<li>函数参数可有可无，多个参数之间用逗号隔开；</li>
+<li>每个参数参数由名字与类型组成，之间用分号隔开；</li>
+<li>函数的返回值可有可无，没有时，返回类型为 void；</li>
+<li>大括号中是函数体。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">search</span>(<span class="hljs-params">age:<span class="hljs-built_in">number</span></span>):<span class="hljs-title">string</span></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;找到了&#x27;</span> + age + <span class="hljs-string">&#x27;岁的学生&#x27;</span><br>&#125;<br><span class="hljs-keyword">var</span> age:<span class="hljs-built_in">number</span> = <span class="hljs-number">18</span><br><span class="hljs-keyword">var</span> result:<span class="hljs-built_in">string</span> = search(age)<br><span class="hljs-built_in">console</span>.log(result)<br><br><span class="hljs-comment">//有可选参数的函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">search</span>(<span class="hljs-params">age:<span class="hljs-built_in">number</span>,stature?:<span class="hljs-built_in">string</span></span>):<span class="hljs-title">string</span></span>&#123;<br>    <span class="hljs-keyword">let</span> yy:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;&quot;</span><br>    yy = <span class="hljs-string">&#x27;找到了&#x27;</span> + age + <span class="hljs-string">&#x27;岁&#x27;</span><br>    <span class="hljs-keyword">if</span>(stature!=<span class="hljs-literal">undefined</span>)&#123;<br>        yy += stature<br>    &#125;<br>    <span class="hljs-keyword">return</span> yy + <span class="hljs-string">&#x27;的学生&#x27;</span><br>&#125;<br><span class="hljs-keyword">var</span> result:<span class="hljs-built_in">string</span> = search(<span class="hljs-number">22</span>,<span class="hljs-string">&#x27;快乐的&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(result)<br><br><span class="hljs-comment">//有默认参数的函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">search</span>(<span class="hljs-params">age:<span class="hljs-built_in">number</span>=<span class="hljs-number">18</span>,stature:<span class="hljs-built_in">string</span>=<span class="hljs-string">&#x27;很高的&#x27;</span></span>):<span class="hljs-title">string</span></span>&#123;<br>    <span class="hljs-keyword">let</span> yy:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;&quot;</span><br>    yy = <span class="hljs-string">&#x27;找到了&#x27;</span> + age + <span class="hljs-string">&#x27;岁&#x27;</span><br>    <span class="hljs-keyword">if</span>(stature!=<span class="hljs-literal">undefined</span>)&#123;<br>        yy += stature<br>    &#125;<br>    <span class="hljs-keyword">return</span> yy + <span class="hljs-string">&#x27;的学生&#x27;</span><br>&#125;<br><span class="hljs-keyword">var</span> result:<span class="hljs-built_in">string</span> = search(<span class="hljs-number">22</span>,<span class="hljs-string">&#x27;快乐的&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(result)<br><br><span class="hljs-comment">//有剩余参数的函数   需求不确定</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">search</span>(<span class="hljs-params">...xuqiu:<span class="hljs-built_in">string</span>[]</span>):<span class="hljs-title">string</span></span>&#123;<br>    <span class="hljs-keyword">let</span> yy:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;找到了&quot;</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>;i&lt;xuqiu.length;++i)&#123;<br>        yy += xuqiu[i]<br>        <span class="hljs-keyword">if</span>(i&lt;xuqiu.length-<span class="hljs-number">1</span>)&#123;<br>            yy += <span class="hljs-string">&#x27;,&#x27;</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> yy + <span class="hljs-string">&#x27;的学生&#x27;</span><br>&#125;<br><span class="hljs-keyword">var</span> result:<span class="hljs-built_in">string</span> = search(<span class="hljs-string">&#x27;22岁&#x27;</span>,<span class="hljs-string">&#x27;快乐的&#x27;</span>,<span class="hljs-string">&#x27;无忧的&#x27;</span>,<span class="hljs-string">&#x27;傻傻的&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(result)<br></code></pre></div></td></tr></table></figure>
+<h2 id="三种函数的定义"><a class="markdownIt-Anchor" href="#三种函数的定义"></a> 三种函数的定义</h2>
+<ul>
+<li>函数声明法
+<ul>
+<li>函数声明法创建函数是最常用的函数定义法。使用function关键字和函数名去定义一个函数。</li>
+</ul>
+</li>
+<li>函数表达式法
+<ul>
+<li>函数表达式法是将一个函数赋值给一个变量，这个变量名就是函数名。通过变量名就可以调用函数了。这种方式定义的函数，必须在定义之后，调用函数。下面例子中等号右边的函数没有函数名，称为匿名函数。</li>
+</ul>
+</li>
+<li>箭头函数
+<ul>
+<li>箭头函数是 ES6 中新增的函数定义的新方式，我们的 TypeScript 语言是完全支持 ES6 语法的。箭头函数定义的函数一般都用于回调函数中。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typeScript"><span class="hljs-comment">//函数声明法</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">n1:<span class="hljs-built_in">number</span>,n2:<span class="hljs-built_in">number</span></span>):<span class="hljs-title">number</span></span>&#123;<br>    <span class="hljs-keyword">return</span> n1+n2<br>&#125;<br><span class="hljs-built_in">console</span>.log(add(<span class="hljs-number">1</span>,<span class="hljs-number">5</span>))<br><br><span class="hljs-comment">//函数表达式法</span><br><span class="hljs-keyword">var</span> add = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">n1:<span class="hljs-built_in">number</span>,n2:<span class="hljs-built_in">number</span></span>):<span class="hljs-title">number</span></span>&#123;<br>    <span class="hljs-keyword">return</span> n1+n2<br>&#125;<br><span class="hljs-built_in">console</span>.log(add(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))<br><br><span class="hljs-comment">//箭头函数 ES6</span><br><span class="hljs-keyword">var</span> add = (n1:<span class="hljs-built_in">number</span>,<span class="hljs-attr">n2</span>:<span class="hljs-built_in">number</span>):<span class="hljs-function"><span class="hljs-params">number</span>=&gt;</span>&#123;<br>    <span class="hljs-keyword">return</span> n1+n2<br>&#125;<br><span class="hljs-built_in">console</span>.log(add(<span class="hljs-number">1</span>,<span class="hljs-number">6</span>))<br></code></pre></div></td></tr></table></figure>
+<h2 id="函数中变量的作用域"><a class="markdownIt-Anchor" href="#函数中变量的作用域"></a> 函数中变量的作用域</h2>
+<blockquote>
+<p>每个变量都有一个起作用的范围，这个范围就是变量的作用域。在TypeScript语言中变量作用域划分是以函数为标准的。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-comment">//变量的作用域，依据函数划分</span><br><br><span class="hljs-comment">//局部变量</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">change</span>(<span class="hljs-params"></span>):<span class="hljs-title">void</span></span>&#123;<br>    <span class="hljs-keyword">var</span> thing:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;cat&#x27;</span><br>    <span class="hljs-built_in">console</span>.log(thing)<br>&#125;<br>change()<br><span class="hljs-built_in">console</span>.log(thing) 会报错，thing作用域只在change函数中<br><br><span class="hljs-comment">//全局变量 </span><br><span class="hljs-keyword">var</span> thing:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;cat&#x27;</span><br><span class="hljs-built_in">console</span>.log(thing)<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">change</span>(<span class="hljs-params"></span>):<span class="hljs-title">void</span></span>&#123;<br>    thing = <span class="hljs-string">&#x27;dog&#x27;</span><br>    <span class="hljs-built_in">console</span>.log(thing)<br>&#125;<br>change()<br><span class="hljs-built_in">console</span>.log(thing)<br><br><span class="hljs-comment">//let关键字 </span><br><br>使用<span class="hljs-keyword">let</span>关键字的变量就是一个块级作用域变量<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">change</span>(<span class="hljs-params"></span>):<span class="hljs-title">void</span></span>&#123;<br>    <span class="hljs-keyword">var</span> thinga:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;cat&#x27;</span><br>    &#123;<br>        <span class="hljs-keyword">let</span> thingb:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;dog&#x27;</span><br>        <span class="hljs-built_in">console</span>.log(thingb)<br>    &#125;<br>    <span class="hljs-built_in">console</span>.log(thinga)<br>    <span class="hljs-comment">//console.log(thingb) 会报错</span><br>&#125;<br>change()<br></code></pre></div></td></tr></table></figure>
+<p>当局部变量与全局变量重名的时候，在函数体内是局部变量起作用；当内部声明了和全局的变量同名时，就会出现变量提升的效果，声明语句会提升到函数的第一句。<strong>[坑]</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-keyword">var</span> yangzi:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;刘德华&#x27;</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">zhengXing</span>(<span class="hljs-params"></span>):<span class="hljs-title">void</span></span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;技术胖整形成了&#x27;</span>+yangzi+<span class="hljs-string">&#x27;的样子&#x27;</span>)<br>    <span class="hljs-keyword">var</span> yangzi:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;马德华&#x27;</span><br><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;技术胖整形成了&#x27;</span>+yangzi+<span class="hljs-string">&#x27;的样子&#x27;</span>)<br>&#125;<br>zhengXing()<br><span class="hljs-built_in">console</span>.log(yangzi)<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>技术胖整形成了undefined的样子</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-keyword">var</span> yangzi:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;刘德华&#x27;</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">zhengXing</span>(<span class="hljs-params"></span>):<span class="hljs-title">void</span></span>&#123;<br>    <span class="hljs-keyword">var</span>  yangzi:<span class="hljs-built_in">string</span> <br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;技术胖整形成了&#x27;</span>+yangzi+<span class="hljs-string">&#x27;的样子&#x27;</span>)<br>    yangzi = <span class="hljs-string">&#x27;马德华&#x27;</span><br><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;技术胖整形成了&#x27;</span>+yangzi+<span class="hljs-string">&#x27;的样子&#x27;</span>)<br>&#125;<br>zhengXing()<br><span class="hljs-built_in">console</span>.log(yangzi)<br></code></pre></div></td></tr></table></figure>
+<h2 id="引用类型-数组"><a class="markdownIt-Anchor" href="#引用类型-数组"></a> 引用类型-数组</h2>
+<blockquote>
+<p>引用类型有Array(数组)，String(字符串)，Date(日期对象)，RegExp(正则表达式)等。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-comment">//初始化数组的两种方法</span><br><span class="hljs-keyword">let</span> arr1:<span class="hljs-built_in">number</span>[]    <span class="hljs-comment">//声明一个数值类型的数组</span><br><span class="hljs-keyword">let</span> arr2:<span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt;  <span class="hljs-comment">//声明一个字符串类型的数组</span><br><br><span class="hljs-comment">//字面量赋值法</span><br><span class="hljs-keyword">let</span> arr1:<span class="hljs-built_in">number</span>[] = []<br><span class="hljs-keyword">let</span> arr2:<span class="hljs-built_in">number</span>[] = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]<br><span class="hljs-keyword">let</span> arr3:<span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt; = [<span class="hljs-string">&#x27;what&#x27;</span>,<span class="hljs-string">&#x27;什么&#x27;</span>]<br><span class="hljs-keyword">let</span> arr4:<span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">boolean</span>&gt; = [<span class="hljs-literal">true</span>,<span class="hljs-literal">false</span>,<span class="hljs-literal">true</span>]<br><br><span class="hljs-comment">//构造函数赋值法</span><br><span class="hljs-keyword">let</span> arr1:<span class="hljs-built_in">number</span>[] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>()<br><span class="hljs-keyword">let</span> arr2:<span class="hljs-built_in">number</span>[] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>)<br><span class="hljs-keyword">let</span> arr3:<span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-string">&#x27;what&#x27;</span>,<span class="hljs-string">&#x27;什么&#x27;</span>)<br><span class="hljs-keyword">let</span> arr4:<span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">boolean</span>&gt; = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-literal">true</span>,<span class="hljs-literal">false</span>,<span class="hljs-literal">true</span>)<br><br><span class="hljs-comment">//let arr5:number[] = [1,2,true]    会报错</span><br><br><span class="hljs-comment">//元组  有顺序的 一种特殊的数组</span><br><span class="hljs-keyword">let</span> x :[<span class="hljs-built_in">string</span>,<span class="hljs-built_in">number</span>]<br>x=[<span class="hljs-string">&#x27;hello&#x27;</span>,<span class="hljs-number">10</span>]<br></code></pre></div></td></tr></table></figure>
+<h2 id="引用类型-字符串"><a class="markdownIt-Anchor" href="#引用类型-字符串"></a> 引用类型-字符串</h2>
+<blockquote>
+<p>TypeScript中字符串的两种类型</p>
+</blockquote>
+<ul>
+<li>基本类型字符串：由单引号或者双引号括起来的一串字符串。</li>
+<li>引用类型字符串：用new 实例化的 String类型。</li>
+</ul>
+<blockquote>
+<p>有了引用类型的字符串就可以给字符串增加一系列方法了。</p>
+</blockquote>
+<p>eg:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-keyword">let</span> jspang:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;技术胖&#x27;</span><br><span class="hljs-keyword">let</span> jspanga:<span class="hljs-built_in">String</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">&quot;jspang.com&quot;</span>)<br><span class="hljs-built_in">console</span>.log(jspang)<br><span class="hljs-built_in">console</span>.log(jspanga)<br></code></pre></div></td></tr></table></figure>
+<p>result:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript">技术胖<br>[<span class="hljs-built_in">String</span>: <span class="hljs-string">&#x27;jspang.com&#x27;</span>]<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>基本类型的字符串可以直接使用引用类型的属性和方法。</p>
+</blockquote>
+<h3 id="字符串的长度"><a class="markdownIt-Anchor" href="#字符串的长度"></a> 字符串的长度</h3>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-keyword">let</span> jspang:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;技术胖&#x27;</span><br><span class="hljs-keyword">let</span> jspanga:<span class="hljs-built_in">String</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">&quot;jspang.com&quot;</span>)<br><span class="hljs-built_in">console</span>.log(jspang.length)<br><span class="hljs-built_in">console</span>.log(jspanga.length)<br></code></pre></div></td></tr></table></figure>
+<h3 id="字符串常用的方法"><a class="markdownIt-Anchor" href="#字符串常用的方法"></a> 字符串常用的方法</h3>
+<h4 id="查找字符串"><a class="markdownIt-Anchor" href="#查找字符串"></a> 查找字符串</h4>
+<p>从头部查找字符串直接使用indexOf就可以了。</p>
+<p>基本语法：<code>str.indexOf(subStr)</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-keyword">let</span> something:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;清早起来打开窗，心情美美的，我要出去找小姐姐，心情美美的。&quot;</span><br><span class="hljs-keyword">let</span> xiaoJieJie:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;小姐姐&quot;</span><br><span class="hljs-built_in">console</span>.log(something.indexOf(xiaoJieJie))   <span class="hljs-comment">//19</span><br></code></pre></div></td></tr></table></figure>
+<p>如果我们查找的字符串没有找到，则返回-1。</p>
+<p>从字符串尾部开始查找字符串的位置，使用<code>lastIndexOf(subStr)</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-keyword">let</span> something:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;清早起来打开窗，心情美美的，我要出去找小姐姐，心情美美的。&quot;</span><br><span class="hljs-keyword">let</span> xiaoJieJie:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;小姐姐&quot;</span><br><span class="hljs-built_in">console</span>.log(something.lastIndexOf(xiaoJieJie)) <span class="hljs-comment">//19</span><br></code></pre></div></td></tr></table></figure>
+<p>需要注意的是，返回的都是字符串的下标。所以返回的值是相同的。并不是返回从后到前的下标位置。</p>
+<h4 id="截取字符串"><a class="markdownIt-Anchor" href="#截取字符串"></a> 截取字符串</h4>
+<blockquote>
+<p>基本语法为：<code>str.substring(startIndex,[endIndex])</code></p>
+</blockquote>
+<blockquote>
+<p>参数 startIndex 表示开始下标，endIndex 表示结束下标，endIndex 参数是可选的。</p>
+</blockquote>
+<blockquote>
+<p>该方法的作用是从指定的开始下标开始截取字符串，截取到 endIndex 的下标之前，如果没有 endIndex，则截取到字符串结束。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-keyword">let</span> something:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;清早起来打开窗，心情美美的，我要出去找小姐姐，心情美美的。&quot;</span><br><span class="hljs-keyword">let</span> xiaoJieJie:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;小姐姐&quot;</span><br><span class="hljs-built_in">console</span>.log(something.substring(<span class="hljs-number">8</span>)) 心情美美的，我要出去找小姐姐，心情美美的。<br><span class="hljs-built_in">console</span>.log(something.substring(<span class="hljs-number">8</span>,<span class="hljs-number">14</span>))  心情美美的，<br></code></pre></div></td></tr></table></figure>
+<h4 id="替换字符串"><a class="markdownIt-Anchor" href="#替换字符串"></a> 替换字符串</h4>
+<blockquote>
+<p>基本语法为：<code>str.replace(subStr,newstr)</code></p>
+</blockquote>
+<blockquote>
+<p>substr 表示被替换的子串，newstr 表示要替换成的子串。</p>
+</blockquote>
+<blockquote>
+<p>该方法的作用是在 str 中从头部开始找 substr 子串，找到之后，把 substr 用 newstr 替换掉。需要注意的是如果 str 中有多个 substr 子串，只有第一个 substr 子串会被替换掉。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs TypeScript"><span class="hljs-keyword">let</span> something:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;清早起来打开窗，心情美美的，我要出去找小姐姐，心情美美的。&quot;</span><br><span class="hljs-keyword">let</span> xiaoJieJie:<span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;小姐姐&quot;</span><br><span class="hljs-built_in">console</span>.log(something.replace(xiaoJieJie,<span class="hljs-string">&#x27;小哥哥&#x27;</span>))<br></code></pre></div></td></tr></table></figure>
+<h2 id="引用类型-日期对象"><a class="markdownIt-Anchor" href="#引用类型-日期对象"></a> 引用类型-日期对象</h2>
+<p>创建日期对象</p>
+<p>日期对象是Date的实例，可以使用构造函数的方法进行创建。并且构造函数中可以传递多种类型的参数。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-comment">//不传递任何参数</span><br><span class="hljs-built_in">Date</span>()构造函数将根据当前日期和时间创建一个<span class="hljs-built_in">Date</span>对象。但不一定是中国时区。<br><br><span class="hljs-keyword">let</span> d:<span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()<br><span class="hljs-built_in">console</span>.log(d)<br><br><span class="hljs-comment">//传递一个整数，这个整数代表的是距离1970-01-01 00:00:00的毫秒数</span><br><span class="hljs-keyword">let</span> d1:<span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">1000</span>)<br><span class="hljs-keyword">let</span> d2:<span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">2000</span>)<br><span class="hljs-built_in">console</span>.log(d1) <span class="hljs-comment">//1970-01-01T00:00:01.000Z</span><br><span class="hljs-built_in">console</span>.log(d2) <span class="hljs-comment">//1970-01-01T00:00:02.000Z</span><br><br><span class="hljs-comment">//传递一个字符串</span><br>如果传递一个表示日期的字符串，就会生成相对应的日期对象。字符串的格式常用:yyyy/MM/dd hh:mm:ss，yyyy-MM-dd hh:mm:ss，yyyy-MM-ddThh:mm:ss等。<br><span class="hljs-keyword">let</span> d1:<span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&#x27;2018/09/06 05:30:00&#x27;</span>)<br><span class="hljs-keyword">let</span> d2:<span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&#x27;2018-09-06 05:30:00&#x27;</span>)<br><span class="hljs-keyword">let</span> d3:<span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">&#x27;2018-09-06T05:30:00&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(d1)<br><span class="hljs-built_in">console</span>.log(d2)<br><span class="hljs-built_in">console</span>.log(d3)<br><br><span class="hljs-comment">//传递表示年月日时分秒的变量</span><br><span class="hljs-keyword">let</span> d:<span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(year,month,day,hours,minutes,seconds,ms);<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>year 表示年份，4位数字。</li>
+<li>month表示月份，数值是0(1月)~11(12月)之间的整数。</li>
+<li>day 表示日期。数值是1~31之间的整数。</li>
+<li>hours 表示小时，数值是0-23之间的整数。</li>
+<li>minutes 表示分钟数，数值是0~59之间的整数。</li>
+<li>seconds 表示秒数，数值是0~59之间的整数。</li>
+<li>ms 表示毫秒数，数值是0~999之间的整数。</li>
+</ul>
+<h2 id="引用类型-正则表达式"><a class="markdownIt-Anchor" href="#引用类型-正则表达式"></a> 引用类型-正则表达式</h2>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-comment">//RegExp      string</span><br><br><span class="hljs-comment">//构造函数声明法        采用new关键字 可传一个或多个参数</span><br><span class="hljs-comment">//一个是字符串描述，另一个是修饰符。</span><br><span class="hljs-comment">//比如g是全局修饰符，i是忽略大小写，m是多行模式。</span><br><span class="hljs-keyword">let</span> reg1: <span class="hljs-built_in">RegExp</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&quot;kok-s0s&quot;</span>)     <span class="hljs-comment">//表示字符串规则里含有kok-s0s</span><br><span class="hljs-built_in">console</span>.log(reg1)<br><span class="hljs-keyword">let</span> reg2: <span class="hljs-built_in">RegExp</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&quot;kok-s0s&quot;</span>, <span class="hljs-string">&#x27;gi&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(reg2)<br><br><span class="hljs-comment">//字面量声明法</span><br><span class="hljs-keyword">let</span> reg3:<span class="hljs-built_in">RegExp</span> = <span class="hljs-regexp">/kok-s0s/</span><br><span class="hljs-keyword">let</span> reg4: <span class="hljs-built_in">RegExp</span> = <span class="hljs-regexp">/kok-s0s/gi</span><br><br><span class="hljs-comment">//test(string)    </span><br><span class="hljs-keyword">let</span> reg1:<span class="hljs-built_in">RegExp</span> = <span class="hljs-regexp">/kok-s0s/</span><br><span class="hljs-keyword">let</span> website:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;kok-s0s.github.io&#x27;</span><br><span class="hljs-keyword">let</span> res:<span class="hljs-built_in">boolean</span> = reg1.test(website)<br><span class="hljs-built_in">console</span>.log(res)<br><br><span class="hljs-comment">//exec(string)</span><br><span class="hljs-keyword">let</span> reg1: <span class="hljs-built_in">RegExp</span> = <span class="hljs-regexp">/kok-s0s/</span><br><span class="hljs-keyword">let</span> website: <span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;kok-s0s.github.io&#x27;</span><br><span class="hljs-keyword">let</span> res: <span class="hljs-built_in">boolean</span> = reg1.test(website)<br><span class="hljs-built_in">console</span>.log(reg1.exec(website))<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>RegExp中的常用方法<br />
+RegExp对象包含两个方法：test( )和exec( ),功能基本相似，用于测试字符串匹配。</p>
+</blockquote>
+<ul>
+<li><code>test(string)</code> ：在字符串中查找是否存在指定的正则表达式并返回布尔值，如果存在则返回 <code>true</code>，不存在则返回 <code>false</code>。</li>
+<li><code>exec(string)</code> : 用于在字符串中查找指定正则表达式，如果 <code>exec()</code> 方法执行成功，则返回包含该查找字符串的相关信息数组。如果执行失败，则返回 <code>null</code>。</li>
+</ul>
+<p>更过关于正则表达式的内容，参考该<a target="_blank" rel="noopener" href="https://www.runoob.com/regexp/regexp-tutorial.html">链接</a></p>
+<h2 id="面向对象编程-类的声明和使用"><a class="markdownIt-Anchor" href="#面向对象编程-类的声明和使用"></a> 面向对象编程-类的声明和使用</h2>
+<blockquote>
+<p>类是对象具体事物的一个抽象，对象时类的具体表现</p>
+</blockquote>
+<blockquote>
+<p>类的定义</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">People</span> </span>&#123;<br>    <span class="hljs-attr">name</span>:<span class="hljs-built_in">string</span><br>    <span class="hljs-attr">age</span>:<span class="hljs-built_in">number</span><br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span>,age:<span class="hljs-built_in">number</span></span>)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name<br>        <span class="hljs-built_in">this</span>.age = age<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">say</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello!&#x27;</span>)<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">let</span> lady:People = <span class="hljs-keyword">new</span> People(<span class="hljs-string">&#x27;kok-s0s&#x27;</span>,<span class="hljs-number">20</span>)<br><span class="hljs-built_in">console</span>.log(lady)<br>lady.say()<br></code></pre></div></td></tr></table></figure>
+<h2 id="面向对象编程-修饰符"><a class="markdownIt-Anchor" href="#面向对象编程-修饰符"></a> 面向对象编程-修饰符</h2>
+<blockquote>
+<p>TypeScript语言和Java还有C#很像（因为我只会这两个面向对象的语言），类中属性的访问可以用访问修饰符来进行限制。访问修饰符分为：public、protected、private。</p>
+</blockquote>
+<ul>
+<li>public:公有修饰符，可以在类内或者类外使用public修饰的属性或者行为，默认修饰符。</li>
+<li>protected:受保护的修饰符，可以本类和子类中使用protected修饰的属性和行为。</li>
+<li>private : 私有修饰符，只可以在类内使用private修饰的属性和行为。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">People</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> sex: <span class="hljs-built_in">string</span><br>    <span class="hljs-keyword">protected</span> name: <span class="hljs-built_in">string</span><br>    <span class="hljs-keyword">private</span> age: <span class="hljs-built_in">number</span><br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">sex:<span class="hljs-built_in">string</span>,name: <span class="hljs-built_in">string</span>, age: <span class="hljs-built_in">number</span></span>)</span> &#123;<br>        <span class="hljs-built_in">this</span>.sex = sex<br>        <span class="hljs-built_in">this</span>.name = name<br>        <span class="hljs-built_in">this</span>.age = age<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">sayhello</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello!&#x27;</span>)<br>    &#125;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">saygood</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;well done!&#x27;</span>)<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> lady:People = <span class="hljs-keyword">new</span> People(<span class="hljs-string">&#x27;女&#x27;</span>,<span class="hljs-string">&#x27;斋藤飞鸟&#x27;</span>,<span class="hljs-number">19</span>)<br><br><span class="hljs-built_in">console</span>.log(lady)<br><span class="hljs-built_in">console</span>.log(lady.sex)<br><span class="hljs-comment">// console.log(lady.name)   报错</span><br><span class="hljs-comment">// console.log(lady.age)    报错</span><br>lady.sayhello()<br><span class="hljs-comment">// lady.saygood()           报错</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>使用readonly修饰符将属性设置为只读，只读属性必须在生命时或者构造函数里被初始化（注意）。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-comment">//只读修饰符 readonly</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Man</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> sex:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;男&#x27;</span><br>&#125;<br><span class="hljs-keyword">var</span> man:Man = <span class="hljs-keyword">new</span> Man()<br><span class="hljs-built_in">console</span>.log(man.sex)<br><span class="hljs-comment">// man.sex = &#x27;女&#x27;  会报错，无法修改</span><br></code></pre></div></td></tr></table></figure>
+<h2 id="面向对象编程-继承和重写"><a class="markdownIt-Anchor" href="#面向对象编程-继承和重写"></a> 面向对象编程-继承和重写</h2>
+<h3 id="类的继承"><a class="markdownIt-Anchor" href="#类的继承"></a> 类的继承</h3>
+<p>在使用TypeScript这门语言时，一个最重要基本功就是面向对象编程，那对类的扩展就变的格外重要，扩展经常使用的手段就是继承。</p>
+<blockquote>
+<p>继承：允许我们创建一个类（子类），从已有的类（父类）上继承所有的属性和方法，子类可以新建父类中没有的属性和方法。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Jspang</span></span>&#123;<br>    <span class="hljs-keyword">public</span> name:<span class="hljs-built_in">string</span><br>    <span class="hljs-keyword">public</span> age : <span class="hljs-built_in">number</span><br>    <span class="hljs-keyword">public</span> skill: <span class="hljs-built_in">string</span><br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">name:<span class="hljs-built_in">string</span>,age:<span class="hljs-built_in">number</span>,skill:<span class="hljs-built_in">string</span></span>)</span>&#123;<br>        <span class="hljs-built_in">this</span>.name = name<br>        <span class="hljs-built_in">this</span>.age = age<br>        <span class="hljs-built_in">this</span>.skill = skill<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">interest</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;找小姐姐&#x27;</span>)<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">let</span> jspangObj:Jspang = <span class="hljs-keyword">new</span> Jspang(<span class="hljs-string">&#x27;技术胖&#x27;</span>,<span class="hljs-number">18</span>,<span class="hljs-string">&#x27;web&#x27;</span>)<br>jspangObj.interest()<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>子类实现 <code>extends</code>关键字就是继承的重点,但是<code>TypeScript</code>不支持多重继承。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JsShuai</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Jspang</span></span>&#123;<br>    <span class="hljs-keyword">public</span> xingxiang:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;帅气&#x27;</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">zhuangQian</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;一天赚了一个亿&#x27;</span>)<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">let</span> shuai = <span class="hljs-keyword">new</span> JsShuai(<span class="hljs-string">&quot;技术帅&quot;</span>,<span class="hljs-number">5</span>,<span class="hljs-string">&#x27;演讲&#x27;</span>)<br>shuai.interest()<br>shuai.zhuangQian()<br></code></pre></div></td></tr></table></figure>
+<h3 id="类方法的重写"><a class="markdownIt-Anchor" href="#类方法的重写"></a> 类方法的重写</h3>
+<blockquote>
+<p>重写就是在子类中重写父类的方法。提供更多种可能性。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JsShuai</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Jspang</span></span>&#123;<br>    <span class="hljs-keyword">public</span> xingxiang:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;帅气&#x27;</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">interest</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">super</span>.interest()<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;建立电商平台&#x27;</span>)<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-title">zhuangQian</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;一天赚了一个亿&#x27;</span>)<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>先是继承了父类的方法，然后通过super关键字调用了父类的方法，实现了技能的增加。</p>
+</blockquote>
+<h2 id="面向对象编程-接口"><a class="markdownIt-Anchor" href="#面向对象编程-接口"></a> 面向对象编程-接口</h2>
+<p>在通常情况下，接口是用来定义一些规范，使用这些接口，就必须实现按照接口中的规范来走。</p>
+<blockquote>
+<p>在面向对象的语言中，术语interface经常被用来定义一个不包含数据和逻辑代码但是用来签名定义了行为的抽象类型。</p>
+</blockquote>
+<h3 id="认识接口"><a class="markdownIt-Anchor" href="#认识接口"></a> 认识接口</h3>
+<p>定义接口的关键字是<code>interface</code>。我们现在就来定义一个接口，这个接口是用来规范丈夫的。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">interface</span> Husband &#123;<br>    <span class="hljs-attr">sex</span>:<span class="hljs-built_in">string</span><br>    <span class="hljs-attr">interest</span>:<span class="hljs-built_in">string</span><br>&#125;<br><span class="hljs-keyword">let</span> myhusband:Husband =&#123; <span class="hljs-attr">sex</span>:<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-attr">interest</span>:<span class="hljs-string">&#x27;看书、作家务&#x27;</span>&#125;<br><span class="hljs-built_in">console</span>.log(myhusband)<br></code></pre></div></td></tr></table></figure>
+<h3 id="可选参数的接口"><a class="markdownIt-Anchor" href="#可选参数的接口"></a> 可选参数的接口</h3>
+<p>对老公的标准如果我们有一些可选项，这些并不是都需要显示出来的，在有些情况下，我们只需要传入部分参数。我们可以使用问好的形式来设置可选参数。</p>
+<p>比如现在我们还希望老公的标准，有一条是给我“买包包”，但是这个是隐喻的，不是直接显示出来的。我们修改我们的接口。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">interface</span> Husband &#123;<br>    <span class="hljs-attr">sex</span>:<span class="hljs-built_in">string</span><br>    <span class="hljs-attr">interest</span>:<span class="hljs-built_in">string</span><br>    maiBaoBao?:<span class="hljs-built_in">Boolean</span><br>&#125;<br><span class="hljs-keyword">let</span> myhusband:Husband =&#123; <span class="hljs-attr">sex</span>:<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-attr">interest</span>:<span class="hljs-string">&#x27;看书、作家务&#x27;</span>,<span class="hljs-attr">maiBaoBao</span>:<span class="hljs-literal">true</span>&#125;<br><span class="hljs-built_in">console</span>.log(myhusband)<br></code></pre></div></td></tr></table></figure>
+<p>上面的代码maiBaoBao选项就是可选的，可以写也可以不写。</p>
+<h3 id="规范函数类型接口"><a class="markdownIt-Anchor" href="#规范函数类型接口"></a> 规范函数类型接口</h3>
+<p>我们还可以使用接口来规范函数类型的接口，比如现在要找老公这件事，我们规定有一些资源，然后我们需要哪些资源，在函数中进行匹配，最后返回是否匹配成功。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">interface</span>  SearchMan&#123;<br>    (source:<span class="hljs-built_in">string</span>,<span class="hljs-attr">subString</span>:<span class="hljs-built_in">string</span>):<span class="hljs-built_in">boolean</span><br>&#125;<br><br><span class="hljs-keyword">let</span> mySearch:SearchMan<br><br>mySearch = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">source:<span class="hljs-built_in">string</span>,subString:<span class="hljs-built_in">string</span></span>):<span class="hljs-title">boolean</span></span>&#123;<br>    <span class="hljs-keyword">let</span> flag =source.search(subString)<br>    <span class="hljs-keyword">return</span> (flag != -<span class="hljs-number">1</span>)<br>&#125; <br><br><span class="hljs-built_in">console</span>.log(mySearch(<span class="hljs-string">&#x27;高、富、帅、德&#x27;</span>,<span class="hljs-string">&#x27;胖&#x27;</span>)) <span class="hljs-comment">//false</span><br></code></pre></div></td></tr></table></figure>
+<blockquote>
+<p>接口可以规范类</p>
+</blockquote>
+<h2 id="面向对象编程-命名空间"><a class="markdownIt-Anchor" href="#面向对象编程-命名空间"></a> 面向对象编程-命名空间</h2>
+<p>在制作大型应用的时候，为了让程序更加有层次感和变量之间不互相干扰，我们可以使用命名空间来构建程序。举个小例子：比如“德华”这件事，帅哥也有叫德华的，二师兄也有叫德华的。那我们要如何区分那。这对于女孩子选老公来说非常重要啊。</p>
+<p>当然命名空间就是解决这个问题的，命名空间，又称内部模块，被用于组织有些具有内在联系的特性和对象。我们来看一个例子：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">namespace</span> shuaiGe&#123;<br>    <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dehua</span></span>&#123;<br>        <span class="hljs-keyword">public</span> name:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;刘德华&#x27;</span><br>        <span class="hljs-function"><span class="hljs-title">talk</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我是帅哥刘德华&#x27;</span>)<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">namespace</span> bajie&#123;<br>    <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dehua</span></span>&#123;<br>        <span class="hljs-keyword">public</span> name:<span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;马德华&#x27;</span><br>        <span class="hljs-function"><span class="hljs-title">talk</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我是二师兄马德华&#x27;</span>)<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">let</span> dehua1:shuaiGe.Dehua = <span class="hljs-keyword">new</span> shuaiGe.Dehua()<br><span class="hljs-keyword">let</span> dehua2:bajie.Dehua = <span class="hljs-keyword">new</span> bajie.Dehua()<br>dehua1.talk()<br>dehua2.talk()<br><br>我是帅哥刘德华<br>我是二师兄马德华<br></code></pre></div></td></tr></table></figure>
+<hr />
+<p>按照这个视频的说法，我是该去学些<code>ES6</code>的知识了。</p>
+<p><strong>⚔🏹(　o=^•ェ•)o　┏━┓</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/08/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">最小生成树</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/03/TypeScript%E5%92%8Cjs%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                        <span class="hidden-mobile">TypeScript和js的区别</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
